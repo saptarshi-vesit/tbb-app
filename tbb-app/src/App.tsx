@@ -4,8 +4,8 @@ import './App.css';
 function UpCommand() {
   return (
     <div>
-      <button className="command up-arrow ">
-        <img className="h-20 w-20" src="/Images/up.png" alt="erw" />
+      <button className="command up-arrow bg-gray-400 border-4 border-gray-700 active:border-0 rounded-md mr-2">
+        <img className="h-20 w-20" src="/Images/up.png" alt="" />
       </button>
     </div>
   )
@@ -14,8 +14,8 @@ function UpCommand() {
 function LightCommand() {
   return (
     <div>
-      <button className="command light-bulb">
-        <img className="h-20 w-20" src="/Images/light.gif" alt="" />
+      <button className="command light-bulb bg-gray-400 border-4 border-gray-700 active:border-0 rounded-md mr-2">
+        <img className="h-20 w-20" src="/Images/bulb.png" alt="" />
       </button>
     </div>
   )
@@ -32,15 +32,15 @@ function CommandPalette() {
 
 function CommandList() {
   return (
-    <div className="command-window bg-gray-500 w-80 h-64"></div>
+    <div className="command-window bg-gray-500 w-96 h-72 ml-auto"></div>
   )
 }
 
 function HelpButton() {
   return (
-    <div>
-      <button className="help w-40 h-20">
-      <img src="/Images/help.png" alt="" />
+    <div className="ml-28">
+      <button className="help bg-blue-500 border-b-4 border-blue-700 active:border-0 py-1  rounded-xl">
+      <img className="w-16 h-14" src="/Images/help.png" alt="" />
       </button>
     </div>
   )
@@ -48,25 +48,40 @@ function HelpButton() {
 
 function PlayButton() {
   return (
-    <div>
-      <button className="play w-10 h-5">
-      <img src="/Images/play.png" alt="" />
+    <div className="mr-24">
+      <button className="play bg-green-500 border-b-4 border-green-700 active:border-0 active:pt-4 px-6 py-3 rounded-lg">
+      <img className="w-10 h-8" src="/Images/play.png" alt="" />
       </button>
     </div>
   )
 }
 
+function Cell() {
+  return (
+    <div className="board-cell border border-gray-500 h-12 w-12 bg-gray-300"></div>
+  )
+}
 
+function Grid() {
+  return (
+    <div className="game-board ml-56">
+      <div className="row-1 flex"><Cell /><Cell /><Cell /></div>
+      <div className="row-2 flex"><Cell /><Cell /><Cell /></div>
+      <div className="row-3 flex"><Cell /><Cell /><Cell /></div>
+    </div>
+  )
+}
 
 class Game extends React.Component {
   render() {
     return (
-      <div className="game-board grid h-screen place-items-center mx-20 my-15">
-          <div className="section-1 flex ml-auto">
+      <div className="grid h-screen place-items-center mx-32">
+          <div className="section-1 flex ml-auto px-6">
             <PlayButton />
             <HelpButton />
           </div>
-          <div className="section-2 ml-auto">
+          <div className="section-2 ml-auto flex w-full">
+            <Grid />
             <CommandList />
           </div>
           <div className="section-3 mr-auto ml-40">
