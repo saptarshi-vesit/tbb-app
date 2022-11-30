@@ -32,7 +32,16 @@ function CommandPalette() {
 
 function CommandList() {
   return (
-    <div className="command-window bg-gray-500 w-96 h-72 ml-auto"></div>
+    <div className="command-container ml-auto">
+      <div className="main-tag h-6 w-14 mr-auto bg-yellow-100"><b className="">MAIN</b></div>
+      <div className="command-window bg-gray-500 w-96 h-72">
+        <div className="command-box w-72 h-24 bg-yellow-100 flex">
+          <img src="/Images/up.png" alt="" />
+          <img src="/Images/up.png" alt="" />
+          <img src="/Images/bulb.png" alt="" />
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -64,7 +73,7 @@ function Cell() {
 
 function Grid() {
   return (
-    <div className="game-board ml-56">
+    <div className="game-board ml-56 inline-block mt-36">
       <div className="row-1 flex"><Cell /><Cell /><Cell /></div>
       <div className="row-2 flex"><Cell /><Cell /><Cell /></div>
       <div className="row-3 flex"><Cell /><Cell /><Cell /></div>
@@ -75,7 +84,7 @@ function Grid() {
 class Game extends React.Component {
   render() {
     return (
-      <div className="grid h-screen place-items-center mx-32">
+      <div className="interface bg-blue-50 grid h-screen place-items-center mx-32">
           <div className="section-1 flex ml-auto px-6">
             <PlayButton />
             <HelpButton />

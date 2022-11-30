@@ -8,10 +8,20 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: black;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.game-board {
+  transform: rotate(135deg) skew(15deg, 15deg);
+  width: fit-content;
+  height: fit-content;
+
+}
+
+
 
