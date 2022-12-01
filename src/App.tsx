@@ -1,44 +1,45 @@
-import React from 'react';
+import React, { Component, useState } from 'react';
 import './App.css';
 
-function UpCommand() {
+function UpCommand(props: any) {
   return (
     <div>
-      <button className="command up-arrow bg-gray-400 border-4 border-gray-700 active:border-0 rounded-md mr-2">
+      <button className="command up-arrow bg-gray-400 border-4 border-gray-700 active:border-0 rounded-md mr-2"
+      onClick = {() => {props.val("up")}}>
         <img className="h-20 w-20" src="/Images/up.png" alt="" />
       </button>
     </div>
   )
 }
 
-function LightCommand() {
+function LightCommand(props: any) {
   return (
     <div>
-      <button className="command light-bulb bg-gray-400 border-4 border-gray-700 active:border-0 rounded-md mr-2">
+      <button className="command light-bulb bg-gray-400 border-4 border-gray-700 active:border-0 rounded-md mr-2"
+      onClick = {() => {props.val("bulb")}}>
         <img className="h-20 w-20" src="/Images/bulb.png" alt="" />
       </button>
     </div>
   )
 }
 
-function CommandPalette() {
-  return (
-    <div className="command-palette flex p-10">
-      <UpCommand />
-      <LightCommand />
-    </div>
-  )
-}
+function CommandList(props: any) {
 
-function CommandList() {
+  const [visible, setVisible] = useState(true);
+
+  const removeElement = () => {
+    setVisible((prev) => !prev);
+  };
+
   return (
     <div className="command-container ml-auto">
       <div className="main-tag h-6 w-14 mr-auto bg-yellow-100"><b className="">MAIN</b></div>
       <div className="command-window bg-gray-500 w-96 h-72">
         <div className="command-box w-72 h-24 bg-yellow-100 flex">
-          <img src="/Images/up.png" alt="" />
-          <img src="/Images/up.png" alt="" />
-          <img src="/Images/bulb.png" alt="" />
+          { props.val !== "" ? visible && (          
+          <button onClick={removeElement} className="command light-bulb bg-gray-400 border-4 border-gray-700 active:border-0 rounded-md mr-2">
+            <img className="h-20 w-20" src={`/Images/${props.val}.png`} alt="" />
+          </button>) : <></>}
         </div>
       </div>
     </div>
@@ -48,7 +49,7 @@ function CommandList() {
 function HelpButton() {
   return (
     <div className="ml-28">
-      <button className="help bg-blue-500 border-b-4 border-blue-700 active:border-0 py-1  rounded-xl">
+      <button className="help bg-blue-500 border-b-4 border-blue-700 active:border-0 py-1 rounded-xl">
       <img className="w-16 h-14" src="/Images/help.png" alt="" />
       </button>
     </div>
@@ -81,8 +82,20 @@ function Grid() {
   )
 }
 
-class Game extends React.Component {
+class Game extends Component<any, any> {
+    constructor(props: any) {
+      super(props);
+      this.state = {
+        currButton: ""
+      };
+    }
+
   render() {
+
+    const handleClick = (button: any) => {
+      this.setState({currButton: button})
+    }
+
     return (
       <div className="interface bg-blue-50 grid h-screen place-items-center mx-32">
           <div className="section-1 flex ml-auto px-6">
@@ -91,10 +104,13 @@ class Game extends React.Component {
           </div>
           <div className="section-2 ml-auto flex w-full">
             <Grid />
-            <CommandList />
+            <CommandList val = {this.state.currButton}/>
           </div>
           <div className="section-3 mr-auto ml-40">
-            <CommandPalette />
+            <div className="command-palette flex p-10">
+              <UpCommand val = {handleClick}/>
+              <LightCommand val = {handleClick}/>
+            </div>
           </div>
       </div>
     )
