@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import './App.css';
 
 function UpCommand(props: any) {
@@ -25,21 +25,20 @@ function LightCommand(props: any) {
 
 function CommandList(props: any) {
 
-  const [visible, setVisible] = useState(true);
+  // const [visible, setVisible] = useState(true);
 
-  const removeElement = () => {
-    setVisible((prev) => !prev);
-  };
-
+  // const removeElement = () => {
+  //   setVisible((prev) => !prev);
+  // };
   return (
     <div className="command-container ml-auto">
       <div className="main-tag h-6 w-14 mr-auto bg-yellow-100"><b className="">MAIN</b></div>
       <div className="command-window bg-gray-500 w-96 h-72">
         <div className="command-box w-72 h-24 bg-yellow-100 flex">
-          { props.val !== "" ? visible && (          
-          <button onClick={removeElement} className="command light-bulb bg-gray-400 border-4 border-gray-700 active:border-0 rounded-md mr-2">
-            <img className="h-20 w-20" src={`/Images/${props.val}.png`} alt="" />
-          </button>) : <></>}
+          {props.val.map((title: any) => {
+            return <button className="command light-bulb bg-gray-400 border-4 border-gray-700 active:border-0 rounded-md mr-2">
+            <img className="h-20 w-20" src={`/Images/${title}.png`} alt="" /></button>;
+          })}
         </div>
       </div>
     </div>
@@ -86,14 +85,14 @@ class Game extends Component<any, any> {
     constructor(props: any) {
       super(props);
       this.state = {
-        currButton: ""
+        buttonList: []
       };
     }
 
   render() {
 
     const handleClick = (button: any) => {
-      this.setState({currButton: button})
+      this.setState({buttonList: this.state.buttonList.concat(button)})
     }
 
     return (
@@ -104,7 +103,7 @@ class Game extends Component<any, any> {
           </div>
           <div className="section-2 ml-auto flex w-full">
             <Grid />
-            <CommandList val = {this.state.currButton}/>
+            <CommandList val = {this.state.buttonList}/>
           </div>
           <div className="section-3 mr-auto ml-40">
             <div className="command-palette flex p-10">
