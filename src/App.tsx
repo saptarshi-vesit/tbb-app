@@ -59,18 +59,27 @@ function PlayButton() {
   )
 }
 
-function Cell() {
+function Cell(props: any) {
+
+  const style = () => {
+    if(props.index === props.coords[0])
+      return "bg-violet-700"
+    else if(props.index === props.coords[1])
+      return "bg-blue-300"
+    else return "bg-gray-300"
+  }
+
   return (
-    <div className="board-cell border border-gray-500 h-12 w-12 bg-gray-300"></div>
+    <div className={`board-cell border border-gray-500 h-12 w-12 ${style()}`}></div>
   )
 }
 
-function Grid() {
+function Grid(props: any) {
   return (
     <div className="game-board ml-56 inline-block mt-36">
-      <div className="row-1 flex"><Cell /><Cell /><Cell /></div>
-      <div className="row-2 flex"><Cell /><Cell /><Cell /></div>
-      <div className="row-3 flex"><Cell /><Cell /><Cell /></div>
+      <div className="row-1 flex"><Cell index = {0} coords = {props.coords}/><Cell index = {5} coords = {props.coords}/><Cell index = {6} coords = {props.coords}/></div>
+      <div className="row-2 flex"><Cell index = {1} coords = {props.coords}/><Cell index = {4} coords = {props.coords}/><Cell index = {7} coords = {props.coords}/></div>
+      <div className="row-3 flex"><Cell index = {2} coords = {props.coords}/><Cell index = {3} coords = {props.coords}/><Cell index = {8} coords = {props.coords}/></div>
     </div>
   )
 }
@@ -79,7 +88,9 @@ class Game extends Component<any, any> {
     constructor(props: any) {
       super(props);
       this.state = {
-        buttonList: []
+        buttonList: [],
+        startPos: 3,
+        endPos: 5,
       };
     }
 
@@ -100,7 +111,7 @@ class Game extends Component<any, any> {
             <HelpButton />
           </div>
           <div className="section-2 ml-auto flex w-full">
-            <Grid />
+            <Grid coords = {[this.state.startPos, this.state.endPos]}/>
             <CommandList val = {this.state.buttonList} deleteVal = {handleRemove}/>
           </div>
           <div className="section-3 mr-auto ml-40">
