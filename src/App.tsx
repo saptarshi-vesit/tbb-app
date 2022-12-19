@@ -49,11 +49,22 @@ function HelpButton() {
   )
 }
 
-function PlayButton() {
+function PlayButton(props: any) {
   return (
     <div className="mr-24">
-      <button className="play bg-green-500 border-b-4 border-green-700 active:border-0 active:pt-4 px-6 py-3 rounded-lg">
-      <img className="w-10 h-8" src="/Images/play.png" alt="" />
+      {props.clicked ? <StopButton /> : 
+        <button onClick={() => {props.play()}} className="play bg-green-500 border-b-4 border-green-700 active:border-0 active:pt-4 px-6 py-3 rounded-lg">
+          <img className="w-10 h-8" src="/Images/play.png" alt="" />
+        </button>}
+    </div>
+  )
+}
+
+function StopButton(props: any) {
+  return (
+    <div>
+      <button className="play bg-red-500 border-b-4 border-red-700 active:border-0 active:pt-4 px-6 py-3 rounded-lg">
+      <img className="w-10 h-8" src="/Images/pause.png" alt="" />
       </button>
     </div>
   )
@@ -91,23 +102,26 @@ class Game extends Component<any, any> {
         buttonList: [],
         startPos: 3,
         endPos: 5,
+        clicked: false,
       };
+      this.handlePlay = this.handlePlay.bind(this);
+    } 
+
+    handlePlay() {
+      this.setState({
+        clicked: true
+      });
     }
 
   render() {
 
-    const handleClick = (button: any) => {
-      this.setState({buttonList: this.state.buttonList.concat(button)})
-    }
-
-    const handleRemove = (index: number) => {
-      this.setState({buttonList: this.state.buttonList.splice(0, index)})
-    }
+    const handleClick = (button: any) => this.setState({buttonList: this.state.buttonList.concat(button)})
+    const handleRemove = (index: number) => this.setState({buttonList: this.state.buttonList.splice(0, index)})
 
     return (
       <div className="interface bg-blue-50 grid h-screen place-items-center mx-32">
           <div className="section-1 flex ml-auto px-6">
-            <PlayButton />
+            <PlayButton play = {this.handlePlay} clicked = {this.state.clicked}/>
             <HelpButton />
           </div>
           <div className="section-2 ml-auto flex w-full">
@@ -135,3 +149,6 @@ function App() {
 }
 
 export default App;
+
+
+//INSTRUCTIONS FOR TOMORROW: now, use map() function to iterate over the buttonList entries and make the moves
